@@ -3,7 +3,7 @@
 class InputHandler
 {
 	private $input = NULL;
-	private $validHeaders = array("u", "k");
+	private $validHeaders = array("u", "k", "i");
 
 	function __construct()
 	{
@@ -22,6 +22,11 @@ class InputHandler
 
 	public function hasRequiredLength()
 	{
+		return (strlen($this->input) > 0);
+	}
+
+	public function hasRequiredUploadLength()
+	{
 		return (strlen($this->input) > 2);
 	}
 
@@ -37,12 +42,12 @@ class InputHandler
 
 	public function isKeyValid()
 	{
-		return (strlen($this->input) > 10);
+		return (strlen($this->input) > 18);
 	}
 
 	public function getKey()
 	{
-		return substr($this->input, 2, 8);
+		return substr($this->input, 2, 16);
 	}
 
 	public function getHeader()
@@ -50,14 +55,14 @@ class InputHandler
 		return $this->input{0};
 	}
 
-	public function getImageData()
+	public function getData()
 	{
-		return substr($this->input, ($this->hasKey() ? (11) : (3)));
+		return substr($this->input, ($this->hasKey() ? (19) : (3)));
 	}
 
-	public function getImageType()
+	public function getType()
 	{
-		return ($this->hasKey() ? ($this->input{10}) : ($this->input{2}));
+		return ($this->hasKey() ? ($this->input{18}) : ($this->input{2}));
 	}
 }
 

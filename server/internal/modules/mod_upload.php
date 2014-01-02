@@ -2,23 +2,23 @@
 
 class Uploader
 {
-	private $imageType;
-	private $imageData;
+	private $type;
+	private $data;
 
 	function __construct($type, $data)
 	{
-		$this->imageType = $type;
-		$this->imageData = $data;
+		$this->type = $type;
+		$this->data = $data;
 	}
 
-	public function getImageSize()
+	public function getSize()
 	{
-		return sizeof($this->imageData);
+		return strlen($this->data);
 	}
 
-	public function getImageType()
+	public function getType()
 	{
-		switch($this->imageType)
+		switch($this->type)
 		{
 			case 'p':
 			{
@@ -28,6 +28,14 @@ class Uploader
 			{
 				return "jpg";
 			}
+			case 'g':
+			{
+				return "gif";
+			}
+			case 't':
+			{
+				return "txt";
+			}
 			default:
 			{
 				return NULL;
@@ -35,14 +43,14 @@ class Uploader
 		}
 	}
 
-	public function saveImage($type)
+	public function save($type)
 	{
 		do
 		{
-			$name = substr(str_shuffle(uniqid("", true)."abcefghijklmnopqrstuvwxyz".uniqid("", true)."ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890".uniqid("", true)), 0, Configuration::get("name-length"));
+			$name = substr(str_shuffle("abcefghijklmnopqrstuvwxyz-ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_"), 0, Configuration::get("name-length"));
 		}
 		while(file_exists("../".$name.".".$type));
-		file_put_contents("../".$name.".".$type, $this->imageData);
+		file_put_contents("../".$name.".".$type, $this->data);
 		return $name.".".$type;
 	}
 }

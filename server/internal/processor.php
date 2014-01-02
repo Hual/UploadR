@@ -15,33 +15,34 @@ if(!$inputHandler->isUserAgentValid()) Output::error("Unknown client");
 
 if($inputHandler->hasRequiredLength() && $inputHandler->hasValidHeader())
 {
-
 	switch($inputHandler->getHeader())
 	{
 		case 'u':
 		{
+			if(!$inputHandler->hasRequiredUploadLength()) Output::error("wowe");
+
 			if(KeyHandler::isKeyRequired())
 			{
 				if(!$inputHandler->hasKey() || !$inputHandler->isKeyValid()) Output::error("Key required");
 				if(!KeyHandler::keyExists($inputHandler->getKey())) Output::error("Invalid key");
 			}
 
-			$uploader = new Uploader($inputHandler->getImageType(), $inputHandler->getImageData());
+			$uploader = new Uploader($inputHandler->getType(), $inputHandler->getData());
 
-			if($uploader->getImageSize() > 10485760) Output::error("Image size too big");
-			if($uploader->getImageType() == NULL) Output::error("Unknown image type");
+			if($uploader->getSize() > 10485760 || $uploader->getSize() < 16) Output::error("Size outside boundaries");
+			if($uploader->getType() == NULL) Output::error("Unknown type");
 
-			Output::success($uploader->saveImage($uploader->getImageType()));
+			Output::success($uploader->save($uploader->getType()));
 			break;
 		}
 		case 'k':
 		{
-			Output::success((int)KeyHandler::isKeyRequired());
+			if(KeyHandler::isKeyRequired()) Output::success("");
 			break;
 		}
 		case 'i':
 		{
-			Output::success(1);
+			Output::success("");
 			break;
 		}
 	}

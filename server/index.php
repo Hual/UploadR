@@ -31,7 +31,7 @@ require_once "./internal/modules/mod_key.php";
         $keys = new KeyHandler("./internal/keys.php");
         do
         {
-            $key = substr(str_shuffle("abcefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"), 0, 4).substr(str_shuffle("abcefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"), 0, 4);
+            $key = substr(str_shuffle("abcefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"), 0, 8).substr(str_shuffle("abcefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"), 0, 8);
         }
         while($keys->_keyExists($key));
         $keys->addKey($key);
