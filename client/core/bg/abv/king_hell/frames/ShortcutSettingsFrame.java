@@ -130,7 +130,7 @@ public class ShortcutSettingsFrame extends JFrame
 		lblShortcutKeysEnabled.setBounds(10, 0, 185, 35);
 		panel_3.add(lblShortcutKeysEnabled);
 		
-		chkBox = new JCheckBox("(Hook library not loaded)");
+		chkBox = new JCheckBox("(Currently "+(Constants.KEYS_ENABLED ? "enabled" : "disabled")+")");
 		chkBox.setBounds(201, 7, 197, 21);
 		chkBox.setSelected(Constants.KEYS_ENABLED);
 		panel_3.add(chkBox);
